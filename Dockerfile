@@ -13,6 +13,10 @@ ENV REDIS_HOST localhost
 ENV REDIS_PORT 6379
 ENV SRCDIR /go/src/github.com/estesp/tweet2redis
 
+RUN apk add --update ca-certificates && \
+    rm -rf /var/cache/apk/* /tmp/*
+RUN update-ca-certificates
+
 RUN mkdir -p ${SRCDIR}
 
 WORKDIR ${SRCDIR}

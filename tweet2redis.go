@@ -80,14 +80,14 @@ func main() {
 	httpClient := config.Client(oauth1.NoContext, token)
 
 	// Twitter client
-	log.Info("Connecting to Twitter streaming API..")
+	log.Info("Setup Twitter OAUTH/HTTP client..")
 	client := twitter.NewClient(httpClient)
 	log.Infof("Connecting to redis (host %s:%d)", host, port)
 	rdClient, err := connectToRedis(host, port)
 	if err != nil {
-		log.Errorf("can't connect to redis on %s:%d; Error: %v", host, port, err)
+		log.Fatalf("can't connect to redis on %s:%d; Error: %v", host, port, err)
 	}
-	log.Info("...connected. Starting twitter streaming API call.")
+	log.Info("...connected. Start twitter streaming API.")
 	stream, err := readTweets(client, rdClient, hashtag)
 	if err != nil {
 		log.Errorf("can't start reading Twitter stream for %q: Error: %v", hashtag, err)
